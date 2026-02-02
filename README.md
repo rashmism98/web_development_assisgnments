@@ -1,0 +1,1 @@
+The beginning folder contains an index.html file and couple of .js files, all the .js files are connected to teh html files, to run the applications in the .js files, edit the index.html file and remove the comment for each js file for the corresponding application you want to run 
