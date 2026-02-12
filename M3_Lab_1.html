@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Practice with Arrays (On-Page Output)</title>
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; padding: 16px; }
+    pre { background: #f6f8fa; padding: 12px; border-radius: 8px; overflow:auto; }
+    h1 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <h1>Practice with Arrays</h1>
+  <pre id="out"></pre>
+
+  <script>
+    // Simple "print" helper to write to the page
+    const outEl = document.getElementById("out");
+    function print(line = "") {
+      outEl.textContent += line + "\n";
+    }
+
+    /******************************************************
+     * Practice with Arrays — JavaScript Solutions
+     ******************************************************/
+
+    /* 1) 5 favorite movies, display 2nd */
+    var favMovies1 = ["Inception", "The Matrix", "Interstellar", "Spirited Away", "The Dark Knight"];
+    print("1) " + favMovies1[1]);
+
+    /* 2) Constructor method length 5, display 1st */
+    var movies2 = new Array(5);
+    movies2[0] = "Inception";
+    movies2[1] = "The Matrix";
+    movies2[2] = "Interstellar";
+    movies2[3] = "Spirited Away";
+    movies2[4] = "The Dark Knight";
+    print("2) " + movies2[0]);
+
+    /* 3) Insert new movie at 3rd position, display new length */
+    var movies3 = new Array(5);
+    movies3[0] = "Inception";
+    movies3[1] = "The Matrix";
+    movies3[2] = "Interstellar";
+    movies3[3] = "Spirited Away";
+    movies3[4] = "The Dark Knight";
+    movies3.splice(2, 0, "Parasite"); // 3rd position (index 2)
+    print("3) length = " + movies3.length);
+
+    /* 4) Literal notation, delete first movie, display array */
+    var movies4 = ["Inception", "The Matrix", "Interstellar", "Spirited Away", "The Dark Knight"];
+    delete movies4[0];
+    print("4) " + movies4.toString()); // shows empty slot as empty between commas
+
+    /* 5) 7 movies, for/in loop */
+    var movies5 = ["Inception","The Matrix","Interstellar","Spirited Away","The Dark Knight","Parasite","Arrival"];
+    print("\n5)");
+    for (var index in movies5) {
+      print(movies5[index]);
+    }
+
+    /* 6) for/of loop */
+    var movies6 = ["Inception","The Matrix","Interstellar","Spirited Away","The Dark Knight","Parasite","Arrival"];
+    print("\n6)");
+    for (var movie of movies6) {
+      print(movie);
+    }
+
+    /* 7) Sorted view using for/of */
+    var movies7 = ["Inception","The Matrix","Interstellar","Spirited Away","The Dark Knight","Parasite","Arrival"];
+    print("\n7) sorted");
+    for (var movie of movies7.slice().sort()) {
+      print(movie);
+    }
+
+    /* 8) leastFavMovies + exact formatting */
+    var movies8 = ["Inception","The Matrix","Interstellar","Spirited Away","The Dark Knight","Parasite","Arrival"];
+    var leastFavMovies = ["Movie 43", "Cats", "The Last Airbender"];
+
+    print("\nMovies I like:\n");
+    for (var movie of movies8) {
+      print(movie);
+    }
+
+    print("\nMovies I regret watching:\n");
+    for (var movie of leastFavMovies) {
+      print(movie);
+    }
+
+    /* 9) concat + reverse sorted */
+    var movies9 = movies8.concat(leastFavMovies);
+    var reverseSorted = movies9.slice().sort().reverse();
+    print("\n9) reverse sorted");
+    for (var movie of reverseSorted) {
+      print(movie);
+    }
+
+    /* 10) last item */
+    var movies10 = movies8.concat(leastFavMovies);
+    print("\n10) last item = " + movies10[movies10.length - 1]);
+
+    /* 11) first item using method (shift) */
+    var movies11 = movies8.concat(leastFavMovies);
+    print("11) first item (shift) = " + movies11.shift());
+
+    /* 12) get disliked indices, replace them */
+    var movies12 = movies8.concat(leastFavMovies);
+
+    var dislikedIndices = [];
+    for (var i = 0; i < movies12.length; i++) {
+      if (leastFavMovies.indexOf(movies12[i]) !== -1) dislikedIndices.push(i);
+    }
+    print("\n12) Disliked indices: " + dislikedIndices.join(", "));
+
+    var replacements = ["The Godfather", "Toy Story", "Whiplash"];
+    for (var j = 0; j < dislikedIndices.length; j++) {
+      movies12[dislikedIndices[j]] = replacements[j] || "A Better Movie";
+    }
+    print("12) Updated movies: " + movies12.join(", "));
+
+    /* 13) Multi-dimensional + filter() names by primitive type */
+    var rankedMovies = [
+      ["Inception", 1],
+      ["The Matrix", 2],
+      ["Interstellar", 3],
+      ["Spirited Away", 4],
+      ["The Dark Knight", 5]
+    ];
+
+    print("\n13) movie names only");
+    for (var pair of rankedMovies) {
+      var namesOnly = pair.filter(function (item) {
+        return typeof item === "string";
+      });
+      print(namesOnly[0]);
+    }
+
+    /* 14) employees + anonymous function showEmployee */
+    var employees = ["Zak", "Jessica", "Mark", "Fred", "Sally"];
+    var showEmployee = function (empArray) {
+      print("\nEmployees:\n");
+      for (var emp of empArray) {
+        print(String(emp).toUpperCase());
+      }
+    };
+    showEmployee(employees);
+
+    /* 15) filter false, null, 0, blank */
+    function filterValues(arr) {
+      return arr.filter(function (value) {
+        return Boolean(value);
+      });
+    }
+    print("\n15) " + JSON.stringify(filterValues([58, "", "abcd", true, null, false, 0])));
+
+    /* 16) random item from array */
+    function getRandomItem(arr) {
+      if (!Array.isArray(arr) || arr.length === 0) return undefined;
+      var idx = Math.floor(Math.random() * arr.length);
+      return arr[idx];
+    }
+    var nums = [1,2,3,4,5,6,7,8,9,10];
+    print("\n16) random item = " + getRandomItem(nums));
+
+    /* 17) largest number in numeric array */
+    function getLargestNumber(arr) {
+      if (!Array.isArray(arr) || arr.length === 0) return undefined;
+      return Math.max.apply(null, arr);
+    }
+    print("17) largest = " + getLargestNumber([10, 4, 99, 23, 7]));
+  </script>
+</body>
+</html>
